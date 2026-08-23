@@ -112,6 +112,21 @@ class Picker(Generic[OPTION_T]):
             else:
                 self.selected_indexes.append(self.index)
 
+    def select_all(self) -> None:
+        """Select all enabled options in multiselect mode."""
+        if not self.multiselect:
+            return
+        self.selected_indexes = [
+            i for i, option in enumerate(self.options)
+            if not isinstance(option, Option) or option.enabled
+        ]
+
+    def deselect_all(self) -> None:
+        """Deselect all options in multiselect mode."""
+        if not self.multiselect:
+            return
+        self.selected_indexes.clear()
+
     def get_selected(self) -> Union[List[PICK_RETURN_T], PICK_RETURN_T]:
         """return the current selected option as a tuple: (option, index)
         or as a list of tuples (in case multiselect==True)
