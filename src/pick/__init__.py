@@ -104,6 +104,9 @@ class Picker(Generic[OPTION_T]):
 
     def mark_index(self) -> None:
         if self.multiselect:
+            option = self.options[self.index]
+            if isinstance(option, Option) and not option.enabled:
+                return
             if self.index in self.selected_indexes:
                 self.selected_indexes.remove(self.index)
             else:
