@@ -77,3 +77,21 @@ def test_disabled_option():
     assert picker.get_selected() == (Option("option1"), 0)
     picker.move_down()
     assert picker.get_selected() == (Option("option3"), 2)
+
+
+def test_negative_default_index():
+    import pytest
+    options = ["option1", "option2", "option3"]
+    picker = Picker(options, default_index=-1)
+    assert picker.get_selected() == ("option3", 2)
+    lines, _ = picker.get_lines()
+    assert "* option3" in lines
+
+    picker = Picker(options, default_index=-3)
+    assert picker.get_selected() == ("option1", 0)
+
+    with pytest.raises(ValueError):
+        Picker(options, default_index=-4)
+    with pytest.raises(ValueError):
+        Picker(options, default_index=3)
+
