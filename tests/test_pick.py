@@ -80,7 +80,6 @@ def test_disabled_option():
     picker.move_down()
     assert picker.get_selected() == (Option("option3"), 2)
 
-
 def test_negative_default_index():
     options = ["option1", "option2", "option3"]
     picker = Picker(options, default_index=-1)
@@ -95,3 +94,11 @@ def test_negative_default_index():
         Picker(options, default_index=-4)
     with pytest.raises(ValueError):
         Picker(options, default_index=3)
+
+
+def test_mark_index_disabled_option():
+    options = [Option("option1"), Option("option2", enabled=False), Option("option3")]
+    picker = Picker(options, multiselect=True)
+    picker.index = 1  # Point directly to disabled option2
+    picker.mark_index()
+    assert picker.get_selected() == []  # Disabled option should NOT be marked
