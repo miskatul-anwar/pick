@@ -1,4 +1,6 @@
-from pick import Picker, Option
+import pytest
+
+from pick import Option, Picker
 
 
 def test_move_up_down():
@@ -80,7 +82,6 @@ def test_disabled_option():
 
 
 def test_negative_default_index():
-    import pytest
     options = ["option1", "option2", "option3"]
     picker = Picker(options, default_index=-1)
     assert picker.get_selected() == ("option3", 2)
@@ -94,4 +95,3 @@ def test_negative_default_index():
         Picker(options, default_index=-4)
     with pytest.raises(ValueError):
         Picker(options, default_index=3)
-
