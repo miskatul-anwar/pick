@@ -85,4 +85,3 @@ def test_mark_index_disabled_option():
     picker.index = 1  # Point directly to disabled option2
     picker.mark_index()
     assert picker.get_selected() == []  # Disabled option should NOT be marked
-
